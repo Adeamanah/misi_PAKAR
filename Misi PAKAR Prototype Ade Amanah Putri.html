@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><title>Misi PAKAR — Prototype</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#0f2240;overflow:hidden;font-family:Nunito,Poppins,Arial,sans-serif}
+#st{position:absolute;left:50%;top:50%;width:1280px;height:720px;background:linear-gradient(135deg,#1B365D,#2d5a96);color:#fff;overflow:hidden}
+.scr{position:absolute;inset:0;display:none;flex-direction:column;padding:0 40px 20px}.scr.on{display:flex}
+.hd{height:84px;display:flex;align-items:center;justify-content:space-between;flex:none}
+.ft{height:76px;display:flex;align-items:center;justify-content:space-between;flex:none;gap:16px}
+h1{font-size:34px;font-weight:800}h2{font-size:24px;font-weight:800}
+.btn{min-height:48px;min-width:48px;border:0;border-radius:14px;padding:10px 26px;font-family:inherit;font-weight:800;font-size:19px;color:#fff;cursor:pointer;transition:.15s;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.btn:hover{transform:scale(1.05);filter:brightness(1.12)}
+.g{background:#2ECC71}.b{background:#4A90E2}.r{background:#E74C3C}.o{background:#E67E22}.y{background:#F1C40F;color:#1B365D}
+.card{background:#fff;color:#1B365D;border:6px solid #4A90E2;border-radius:24px}
+mark{background:#F1C40F;color:#1B365D;padding:0 6px;border-radius:6px}
+.ins{font-size:21px;font-weight:800;text-align:center;padding:6px 0 12px;flex:none}
+.area{flex:1;display:flex;gap:20px;min-height:0}
+.inf{font-weight:800;font-size:18px}
+/* menu */
+#s1{align-items:center}.mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.bot{font-size:150px;animation:wv 2s infinite}@keyframes wv{50%{transform:rotate(-6deg) translateY(-8px)}}
+.bub{background:#fff;color:#1B365D;border-radius:20px;padding:14px 28px;font-size:24px;font-weight:800;max-width:700px;text-align:center}
+.row{display:flex;gap:20px}
+/* map */
+#mp{position:relative;flex:1;margin:6px 0 10px;border-radius:28px;background:radial-gradient(#f3e3b5,#d9b873);border:6px solid #8a5a22}
+#mp svg{position:absolute;inset:0;width:100%;height:100%}
+.nd{position:absolute;width:88px;height:88px;border-radius:50%;transform:translate(-50%,-50%);border:5px solid #fff;font-family:inherit;font-weight:800;font-size:30px;color:#fff;cursor:pointer;transition:.15s;line-height:1.05}
+.nd:hover{transform:translate(-50%,-50%) scale(1.08)}.nd small{display:block;font-size:14px;color:#F1C40F}
+.nd.on{background:#2ECC71}.nd.off{background:#8a8f98;color:#E74C3C}
+/* slide */
+.board{flex:1;margin:4px 0 8px;display:flex;align-items:center;gap:40px;padding:30px 50px}
+.board .em{font-size:150px}.board p{font-size:30px;line-height:1.5;font-weight:700}
+/* dd */
+.pool{width:390px;display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start;padding:14px;border-radius:18px;background:rgba(255,255,255,.12)}
+.bks{flex:1;display:flex;gap:14px}.bk{flex:1;border:4px dashed #F1C40F;border-radius:18px;background:rgba(255,255,255,.14);padding:12px;display:flex;flex-direction:column;gap:10px;align-content:flex-start}
+.bk h4{font-size:19px;text-align:center}
+#s6 .bk:first-child{border-color:#2ECC71}#s6 .bk:last-child{border-color:#E74C3C}
+.chip{min-height:48px;background:#fff;color:#1B365D;border-radius:12px;padding:10px 16px;font-weight:800;font-size:18px;cursor:grab;transition:.15s}
+.chip:hover{transform:scale(1.05)}.chip.ok{background:#2ECC71;color:#fff}.chip.no{background:#E74C3C;color:#fff}.chip.sel{outline:4px solid #F1C40F}
+/* memory */
+#s5 .area{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.fc{border-radius:18px;cursor:pointer;transition:.15s;display:flex}.fc:hover{transform:scale(1.05)}
+.fb,.ff{flex:1;border-radius:18px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;padding:12px}
+.fb{background:#4A90E2;border:5px solid #F1C40F;font-size:26px}.ff{display:none;background:#fff;color:#1B365D;font-size:21px;border:5px solid #4A90E2}
+.fc.open .fb{display:none}.fc.open .ff{display:flex}.fc.ok .ff{background:#2ECC71;color:#fff;border-color:#fff;box-shadow:0 0 22px #2ECC71}
+/* robot */
+#gr{display:grid;grid-template-columns:repeat(5,96px);grid-auto-rows:96px;gap:4px;align-self:flex-start;background:#0f2240;padding:6px;border-radius:14px}
+#gr div{background:#e8f1fb;color:#1B365D;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:48px;flex-direction:column;line-height:1}
+#gr small{font-size:16px;color:#E74C3C}
+.side{flex:1;display:flex;flex-direction:column;gap:12px}
+.pal{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pal .btn{background:#4A90E2;font-size:17px}
+#pg{flex:1;background:#fff;color:#1B365D;border-radius:16px;padding:12px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;font-weight:700}
+.pb{background:#F1C40F;border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:800;font-size:16px}
+#nm{font-family:inherit;font-size:24px;font-weight:800;text-align:center;padding:12px 24px;width:460px;border-radius:14px;border:5px solid #F1C40F;color:#1B365D;outline:0}
+#s9 .area{flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.seq{display:flex;gap:10px;align-items:center;background:#fff;border:6px solid #4A90E2;border-radius:24px;padding:20px 30px}
+.seq span{font-size:60px;min-width:84px;text-align:center;line-height:1;padding:0 4px}
+.seq .q{background:#F1C40F;color:#1B365D;border-radius:16px;font-weight:800;height:84px;line-height:84px}
+.opts{display:flex;gap:20px}
+.opt{min-width:120px;min-height:100px;border:5px solid #4A90E2;background:#fff;border-radius:18px;font-size:46px;cursor:pointer;transition:.15s;padding:8px 18px;font-family:inherit}
+.opt:hover{transform:scale(1.05)}.opt.ok{background:#2ECC71;border-color:#fff}.opt.no{background:#E74C3C;border-color:#fff}
+/* end */
+.big{font-size:54px;color:#F1C40F;letter-spacing:6px}.code{font-family:monospace;font-size:26px;background:#0f2240;border:3px dashed #F1C40F;border-radius:12px;padding:10px 24px;font-weight:700}
+.cf{position:absolute;top:-20px;width:12px;height:18px;animation:fl 3.5s linear infinite}@keyframes fl{to{transform:translateY(780px) rotate(720deg)}}
+/* modal/toast */
+#md{position:absolute;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:9}
+.mc{padding:30px 40px;min-width:460px;max-width:720px;text-align:center;font-size:20px;line-height:1.5}.mc h2{margin-bottom:8px}.mc ul{text-align:left;padding-left:24px}
+.mb{display:flex;gap:12px;justify-content:center;margin-top:20px}
+#tt{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:#F1C40F;color:#1B365D;font-weight:800;font-size:20px;padding:12px 26px;border-radius:30px;opacity:0;transition:.25s;pointer-events:none;z-index:10}#tt.show{opacity:1}
+</style></head><body>
+<div id="st">
+<section id="s1" class="scr on">
+ <div class="hd"><h1>⭐ MISI PAKAR</h1><button class="btn b" id="snd" onclick="tg()">🔊 Suara</button></div>
+ <div class="mid"><div class="bot">🤖</div><div class="bub" id="bub"></div><input id="nm" maxlength="20" placeholder="✏️ Tulis namamu di sini…" oninput="upd()">
+ <div class="row" style="margin-top:14px"><button class="btn g" style="font-size:24px;padding:16px 40px" onclick="start1()">MULAI PETUALANGAN</button><button class="btn b" style="font-size:24px;padding:16px 40px" onclick="help()">PETUNJUK PERMAINAN</button><button class="btn r" style="font-size:24px;padding:16px 40px" onclick="rst()">RESET PROGRES</button></div></div>
+</section>
+<section id="s2" class="scr">
+ <div class="hd"><button class="btn b" onclick="go('s1')">◀ KEMBALI KE MENU</button><h2 id="tot"></h2><div class="row"><button class="btn y" id="fin" onclick="go('s8')">🏆 HASIL AKHIR</button><button class="btn o" onclick="demo=1;drawMap();toast('Mode demo: semua level terbuka')">🔓 Demo</button></div></div>
+ <div id="mp"></div>
+</section>
+<section id="s3" class="scr">
+ <div class="hd"><h2 id="s3t"></h2><h2 id="s3i" style="color:#F1C40F"></h2></div>
+ <div class="card board"><div class="em" id="sle"></div><p id="slt"></p></div>
+ <div class="ft"><button class="btn b" id="pv" onclick="prv()">◀ SEBELUMNYA</button><button class="btn g" id="nx" onclick="nxt()">NEXT ▶</button></div>
+</section>
+<section id="s4" class="scr">
+ <div class="hd"><h2 class="gt"></h2><button class="btn b" onclick="go('s2')">🗺️ PETA</button></div>
+ <div class="ins"></div><div class="area"></div>
+ <div class="ft"><span class="inf"></span><button class="btn g chk">PERIKSA JAWABAN</button></div>
+</section>
+<section id="s5" class="scr">
+ <div class="hd"><h2 class="gt"></h2><button class="btn b" onclick="go('s2')">🗺️ PETA</button></div>
+ <div class="ins"></div><div class="area"></div>
+ <div class="ft"><span class="inf">Langkah: <b id="mv">0</b></span><span></span></div>
+</section>
+<section id="s9" class="scr">
+ <div class="hd"><h2 class="gt"></h2><button class="btn b" onclick="go('s2')">🗺️ PETA</button></div>
+ <div class="ins"></div><div class="area"></div>
+ <div class="ft"><span class="inf"></span><span></span></div>
+</section>
+<section id="s6" class="scr">
+ <div class="hd"><h2 class="gt"></h2><button class="btn b" onclick="go('s2')">🗺️ PETA</button></div>
+ <div class="ins"></div><div class="area"></div>
+ <div class="ft"><span class="inf"></span><button class="btn g chk">KIRIM SOLUSI</button></div>
+</section>
+<section id="s7" class="scr">
+ <div class="hd"><h2 class="gt"></h2><button class="btn b" onclick="go('s2')">🗺️ PETA</button></div>
+ <div class="area"><div id="gr"></div>
+  <div class="side"><div class="ins" style="padding:0;text-align:left;font-size:19px">Algoritma Builder — klik blok untuk menambah, klik urutan untuk menghapus.</div>
+  <div class="pal"><button class="btn" data-b="0">⬆️ Maju 1 Langkah</button><button class="btn" data-b="3">⭐ Ambil Bintang</button><button class="btn" data-b="1">↩️ Belok Kiri</button><button class="btn" data-b="2">↪️ Belok Kanan</button></div>
+  <div id="pg"></div></div></div>
+ <div class="ft"><span class="inf">Target: ≤ <b id="opt"></b> blok untuk ★★★</span><div class="row"><button class="btn o" id="rst7">RESET BLOK</button><button class="btn g" id="run">▶ JALANKAN ROBOT</button></div></div>
+</section>
+<section id="s8" class="scr" style="align-items:center;text-align:center">
+ <div class="hd" style="height:30px"></div>
+ <div style="font-size:90px;line-height:1">🏆 🤖</div>
+ <h1 id="h8" style="margin:6px 0;font-size:30px"></h1>
+ <div class="big" id="e1"></div><h2 id="e2" style="margin:6px 0"></h2><h2 id="e3" style="color:#2ECC71"></h2>
+ <div class="code" id="cd" style="margin:14px 0"></div>
+ <div class="row"><button class="btn y" onclick="cp()">📋 SALIN KODE HASIL KOLEKSI</button><button class="btn b" onclick="go('s1')">KEMBALI KE BERANDA</button></div>
+ <div id="cfw"></div>
+</section>
+<div id="md"></div><div id="tt"></div>
+</div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let S={st:Array(8).fill(0),sc:Array(8).fill(0),name:''},cur=0,sl=0,snd=1,demo=0;
+try{S=JSON.parse(localStorage.mp)||S}catch(e){}
+const save=()=>{try{localStorage.mp=JSON.stringify(S)}catch(e){}};
+const upd=()=>{const v=$('#nm').value.trim();$('#bub').textContent=`Halo ${v||'Petualang'}! Siap Memecahkan Misi Berpikir Komputasional? 👋`};
+const start1=()=>{const v=$('#nm').value.trim();if(!v){toast('✏️ Tulis namamu dulu ya!');$('#nm').focus();return}S.name=v;save();go('s2')};
+$('#nm').value=S.name||'';upd();
+const fit=()=>{$('#st').style.transform=`translate(-50%,-50%) scale(${Math.min(innerWidth/1280,innerHeight/720)})`};onresize=fit;fit();
+const beep=f=>{if(!snd)return;try{const a=new AudioContext(),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;g.gain.value=.05;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.15)}catch(e){}};
+const tg=()=>{snd=!snd;$('#snd').textContent=snd?'🔊 Suara':'🔇 Senyap'};
+const toast=t=>{const e=$('#tt');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1900)};
+const close=()=>$('#md').style.display='none';
+function modal(h,bs){const m=$('#md');m.innerHTML=`<div class="card mc">${h}<div class="mb"></div></div>`;bs.forEach(([l,c,f])=>{const b=document.createElement('button');b.className='btn '+c;b.textContent=l;b.onclick=f;m.querySelector('.mb').append(b)});m.style.display='flex'}
+function go(id){$$('.scr').forEach(e=>e.classList.toggle('on',e.id==id));if(id=='s2')drawMap();if(id=='s8')drawEnd()}
+function help(){modal('<h2>📖 Petunjuk Permainan</h2><ul><li>Pilih level di Peta Misi, baca 3 slide materi.</li><li>Kerjakan mini-game untuk meraih 1–3 bintang.</li><li>Selesaikan level berurutan untuk membuka gembok.</li><li>Drag &amp; drop bisa dengan seret, atau klik kartu lalu klik wadah.</li></ul>',[['MENGERTI','g',close]])}
+function rst(){modal('<h2>Reset progres?</h2><p>Semua bintang dan skor akan dihapus.</p>',[['YA, RESET','r',()=>{S={st:Array(8).fill(0),sc:Array(8).fill(0),name:''};demo=0;save();$('#nm').value='';upd();close();toast('Progres direset')}],['BATAL','b',close]])}
+const P=[
+{n:'Dekomposisi',s:'Memecah Masalah',sl:[['🧩','Masalah besar terasa sulit. <mark>Dekomposisi</mark> berarti memecahnya menjadi bagian-bagian kecil yang lebih mudah.'],['🎂','Contoh: pesta ulang tahun dipecah menjadi <mark>makanan</mark>, <mark>dekorasi</mark>, dan <mark>susunan acara</mark>.'],['🚀','Ingat: <mark>pecah</mark> → <mark>kelompokkan</mark> → kerjakan satu per satu. Siap menantang?']]},
+{n:'Pengenalan Pola',s:'Mengenali Kesamaan',sl:[['🔍','<mark>Pengenalan pola</mark> berarti mencari kesamaan atau keteraturan pada beberapa masalah.'],['🔁','Mencari kata di kamus dan mencari nama di buku telepon sama-sama memakai <mark>urutan abjad</mark>.'],['💡','Jika pola dikenali, <mark>solusi lama</mark> bisa dipakai lagi. Ayo cocokkan kartu dan lanjutkan polanya!']]},
+{n:'Abstraksi',s:'Menyaring Informasi',sl:[['🎯','<mark>Abstraksi</mark> berarti fokus pada informasi penting dan mengabaikan detail yang tidak diperlukan.'],['🚌','Memilih rute ke sekolah: yang penting <mark>jarak</mark> dan <mark>waktu</mark>, bukan warna cat bus.'],['🗑️','Tanyakan: “Apakah informasi ini <mark>membantu</mark> solusi?” Jika tidak, buang!']]},
+{n:'Algoritma',s:'Menyusun Langkah',sl:[['📜','<mark>Algoritma</mark> adalah urutan langkah yang jelas dan tepat untuk menyelesaikan masalah.'],['🤖','Robot hanya paham: <mark>Maju</mark>, <mark>Belok Kiri</mark>, <mark>Belok Kanan</mark>, <mark>Ambil Bintang</mark>.'],['⭐','Urutan menentukan hasil! Susun blok sesedikit mungkin untuk bintang maksimal.']]}];
+const LV=[
+{p:0,g:'s4',t:'Pesta Ulang Tahun',ins:'Seretlah 6 Kartu Tugas Persiapan Pesta ke 3 Wadah Kategori yang Tepat!',bk:['🍰 Wadah Makanan & Minuman','🎈 Wadah Dekorasi','📋 Wadah Susunan Acara'],it:[['Membeli Kue',0],['Memasang Balon',1],['Menyusun Acara',2],['Menyediakan Minuman',0],['Memasang Banner',1],['Mengirim Undangan',2]]},
+{p:0,g:'s4',t:'Piknik Sekolah',ins:'Seretlah 6 Kartu Tugas Piknik Sekolah ke 3 Wadah Kategori yang Tepat!',bk:['🥪 Wadah Bekal','🎒 Wadah Perlengkapan','⚽ Wadah Kegiatan'],it:[['Membawa Roti',0],['Membawa Air Minum',0],['Membawa Tikar',1],['Membawa Payung',1],['Bermain Bola',2],['Bernyanyi Bersama',2]]},
+{p:1,g:'s5',t:'Kartu Pola Satu',ins:'Temukan 4 Pasang Kartu yang Memiliki Kesamaan Pola Permasalahan!',pr:[['📖 Mencari kata di kamus','📞 Mencari nama di buku telepon'],['📚 Menyusun buku A–Z','📝 Mengurutkan daftar hadir'],['🍰 Membagi kue sama rata','👥 Membagi tugas kelompok adil'],['🍜 Antre di kantin','🎟️ Antre di loket']]},
+{p:1,g:'s9',t:'Lanjutkan Pola',ins:'Perhatikan pola gambar, lalu pilih gambar yang melanjutkan pola berikutnya!',pq:[{s:['🔴','🔵','🔴','🔵','🔴'],a:'🔵',o:['🔴','🔵','🟢','🟡']},{s:['🔺','🔺','⬛','🔺','🔺','⬛','🔺','🔺'],a:'⬛',o:['🔺','⬛','⭕','🔷']},{s:['🌱','🌿','🌳','🌱','🌿'],a:'🌳',o:['🌱','🌿','🌳','🍎']},{s:['🟦','🟦🟦','🟦🟦🟦'],a:'🟦🟦🟦🟦',o:['🟦🟦','🟦🟦🟦🟦','🟦🟦🟦🟦🟦','🟦🟦🟦🟦🟦🟦']}],xx:[['🌧️ Hujan → bawa payung','❄️ Dingin → pakai jaket'],['🔢 2, 4, 6, 8, …','🔢 5, 10, 15, 20, …'],['🧹 Jadwal piket bergilir','🌙 Jadwal ronda bergilir'],['🌱 Siram tanaman tiap pagi','🐟 Beri makan ikan tiap pagi']]},
+{p:2,g:'s6',t:'Rute ke Sekolah',ins:'Bantu Budi Menentukan Rute Tercepat ke Sekolah: seret informasi PENTING ke Kotak Solusi, buang yang tidak penting!',bk:['✅ KOTAK SOLUSI','🗑️ TEMPAT SAMPAH'],it:[['Jarak rute',0],['Waktu tempuh',0],['Kondisi macet',0],['Jadwal bus',0],['Warna cat bus',1],['Nama sopir',1],['Merk sepatu',1],['Warna sepeda',1]]},
+{p:2,g:'s6',t:'Memilih Tempat Les',ins:'Bantu Sari Memilih Tempat Les: seret informasi PENTING ke Kotak Solusi, buang yang tidak penting!',bk:['✅ KOTAK SOLUSI','🗑️ TEMPAT SAMPAH'],it:[['Biaya les',0],['Jadwal kelas',0],['Jarak lokasi',0],['Kualitas pengajar',0],['Warna dinding',1],['Merk pulpen guru',1],['Nama satpam',1],['Warna seragam',1]]},
+{p:3,g:'s7',t:'Robot Pencari Bintang',s:[0,0],gl:[3,2],r:[[2,0],[1,2],[3,3]],o:9},
+{p:3,g:'s7',t:'Labirin Batu',s:[0,0],gl:[4,4],r:[[1,0],[2,1],[1,3],[3,2]],o:11}];
+const pos=[[8,72],[20,34],[32,70],[44,32],[56,68],[68,32],[80,66],[91,30]],ok=i=>demo||i==0||S.st[i-1]>0;
+function drawMap(){const t=S.st.reduce((a,b)=>a+b,0);$('#tot').textContent=`👤 ${S.name||'Petualang'} • Bintang Kamu: ${t} / 24 ★`;$('#fin').style.display=S.st[7]?'':'none';
+$('#mp').innerHTML=`<svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="${pos.map(p=>p.join(',')).join(' ')}" fill="none" stroke="#8a5a22" stroke-width="4" stroke-dasharray="10 8" vector-effect="non-scaling-stroke"/></svg>`+pos.map((p,i)=>`<button class="nd ${ok(i)?'on':'off'}" style="left:${p[0]}%;top:${p[1]}%" onclick="pick(${i})">${ok(i)?i+1+`<small>${'★'.repeat(S.st[i])+'☆'.repeat(3-S.st[i])}</small>`:'🔒'}</button>`).join('')}
+function pick(i){if(!ok(i))return toast('🔒 Selesaikan level sebelumnya dulu!');modal(`<h2>Level ${i+1}: ${LV[i].t}</h2><p>Pilar: ${P[LV[i].p].n} — ${P[LV[i].p].s}</p><p style="font-size:16px;opacity:.7">${i%2?'Langsung ke game 🎮':'Ada 3 slide materi dulu 📖'}</p>`,[['MASUK MISI','g',()=>{cur=i;sl=0;close();if(i%2){sl=2;nxt()}else{slide();go('s3')}}],['TUTUP','b',close]])}
+function slide(){const p=P[LV[cur].p];$('#s3t').textContent=`Misi ${cur+1}: ${p.n} — ${p.s}`;$('#s3i').textContent=`Slide ${sl+1} dari 3`;$('#sle').textContent=p.sl[sl][0];$('#slt').innerHTML=p.sl[sl][1];$('#pv').style.visibility=sl?'visible':'hidden';const n=$('#nx');n.textContent=sl==2?'MULAI TANTANGAN GAME 🎮':'NEXT ▶';n.className='btn '+(sl==2?'g':'b')}
+const prv=()=>{sl--;slide()};
+function nxt(){if(sl<2){sl++;return slide()}const L=LV[cur],id='#'+L.g;go(L.g);$(id+' .gt').textContent=`Level ${cur+1}: ${L.t}`;if($(id+' .ins'))$(id+' .ins').textContent=L.ins||'';
+ if(L.g=='s5')mem(L);else if(L.g=='s7')rob(L);else if(L.g=='s9')pat(L);else dd(L,id)}
+function fin(st){const sc=40+20*st;S.st[cur]=Math.max(S.st[cur],st);S.sc[cur]=Math.max(S.sc[cur],sc);save();beep(880);const last=cur==7;
+modal(`<h2>🎉 Misi ${cur+1} Selesai!</h2><div class="big" style="font-size:48px">${'★'.repeat(st)+'☆'.repeat(3-st)}</div><p>+${sc} poin</p>`,[[last?'LIHAT HASIL AKHIR':'KEMBALI KE PETA','g',()=>{close();go(last?'s8':'s2')}]])}
+function pat(L){const R=$('#s9 .area');let q=0,w=0;const show=()=>{const x=L.pq[q];$('#s9 .inf').textContent=`Soal ${q+1} dari ${L.pq.length}`;
+R.innerHTML=`<div class="seq">${x.s.map(e=>`<span>${e}</span>`).join('')}<span class="q">?</span></div><h2>Gambar apa yang melanjutkan pola?</h2><div class="opts">${[...x.o].sort(()=>Math.random()-.5).map(o=>`<button class="opt">${o}</button>`).join('')}</div>`;
+let lk=0;R.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(lk)return;if(b.textContent==x.a){lk=1;b.classList.add('ok');beep(880);setTimeout(()=>{if(++q<L.pq.length)show();else fin(w==0?3:w<=2?2:1)},800)}else{w++;b.classList.add('no');beep(150)}})};show()}
+function dd(L,id){const R=$(id+' .area'),B=$(id+' .chk');let pl=L.it.map(()=>-1),sel=null,tr=0,rs=null;
+const its=b=>L.it.map((x,i)=>pl[i]==b?`<div class="chip ${rs?rs[i]?'ok':'no':''} ${sel===i?'sel':''}" draggable="true" data-i="${i}">${x[0]}</div>`:'').join('');
+const draw=()=>{R.innerHTML=`<div class="pool zone" data-b="-1">${its(-1)}</div><div class="bks">${L.bk.map((b,j)=>`<div class="bk zone" data-b="${j}"><h4>${b}</h4>${its(j)}</div>`).join('')}</div>`;$(id+' .inf').textContent='Percobaan: '+tr};
+const put=(i,b)=>{pl[i]=b;sel=null;rs=null;draw()};
+R.ondragstart=e=>{const c=e.target.closest('.chip');if(c)e.dataTransfer.setData('text/plain',c.dataset.i)};
+R.ondragover=e=>e.preventDefault();
+R.ondrop=e=>{e.preventDefault();const z=e.target.closest('.zone'),i=e.dataTransfer.getData('text/plain');if(z&&i!=='')put(+i,+z.dataset.b)};
+R.onclick=e=>{const c=e.target.closest('.chip'),z=e.target.closest('.zone');if(c){sel=+c.dataset.i;draw()}else if(z&&sel!=null)put(sel,+z.dataset.b)};
+B.onclick=()=>{if(pl.includes(-1))return toast('Tempatkan semua kartu dulu ya!');tr++;const r=rs=L.it.map((x,i)=>pl[i]==x[1]?1:0),w=r.filter(x=>!x).length;draw();beep(w?200:880);if(!w)return setTimeout(()=>fin(Math.max(1,4-tr)),700);toast(`${w} kartu masih salah, coba lagi!`);setTimeout(()=>{pl=pl.map((p,i)=>r[i]?p:-1);rs=null;draw()},1500)};draw()}
+function mem(L){const R=$('#s5 .area');let cs=[],op=[],mt=0,mv=0,lk=0;L.pr.forEach((p,k)=>p.forEach(t=>cs.push({k,t})));cs.sort(()=>Math.random()-.5);$('#mv').textContent=0;
+R.innerHTML=cs.map((c,i)=>`<div class="fc" data-i="${i}"><div class="fb">🤖<br>PAKAR</div><div class="ff">${c.t}</div></div>`).join('');
+R.onclick=e=>{const d=e.target.closest('.fc');if(!d||lk||d.classList.contains('open'))return;d.classList.add('open');op.push(d);beep(600);if(op.length==2){mv++;$('#mv').textContent=mv;const[a,b]=op;if(cs[a.dataset.i].k==cs[b.dataset.i].k){a.classList.add('ok');b.classList.add('ok');op=[];beep(900);if(++mt==4)setTimeout(()=>fin(mv<=6?3:mv<=9?2:1),700)}else{lk=1;beep(150);setTimeout(()=>{a.classList.remove('open');b.classList.remove('open');op=[];lk=0},900)}}}}
+function rob(L){let pg=[],run=0,rx,ry,rd,got;const D=[[1,0],[0,1],[-1,0],[0,-1]],AR='▶▼◀▲',BL=['⬆️ Maju','↩️ Kiri','↪️ Kanan','⭐ Ambil'];$('#opt').textContent=L.o;
+const draw=()=>{let h='';for(let y=0;y<5;y++)for(let x=0;x<5;x++){let c='';if(L.r.some(q=>q[0]==x&&q[1]==y))c='🪨';else if(!got&&x==L.gl[0]&&y==L.gl[1])c='⭐';if(x==rx&&y==ry)c=`🤖<small>${AR[rd]}</small>`;h+=`<div>${c}</div>`}$('#gr').innerHTML=h};
+const prog=()=>{$('#pg').innerHTML=pg.map((b,i)=>`<span class="pb" data-i="${i}">${i+1}. ${BL[b]}</span>`).join('')||'<i style="opacity:.6">Belum ada blok perintah…</i>'};
+const reset=()=>{[rx,ry]=L.s;rd=0;got=0;draw()};
+$$('#s7 .pal .btn').forEach(b=>b.onclick=()=>{if(!run&&pg.length<16){pg.push(+b.dataset.b);prog()}});
+$('#pg').onclick=e=>{const i=e.target.dataset.i;if(i!=null&&!run){pg.splice(i,1);prog()}};
+$('#rst7').onclick=()=>{if(!run){pg=[];prog();reset()}};
+$('#run').onclick=async()=>{if(run||!pg.length)return;run=1;reset();for(const b of pg){await new Promise(r=>setTimeout(r,500));if(b==0){const nx=rx+D[rd][0],ny=ry+D[rd][1];if(nx<0||ny<0||nx>4||ny>4||L.r.some(q=>q[0]==nx&&q[1]==ny)){toast('💥 Robot menabrak! Susun ulang algoritmanya.');beep(150);run=0;return}rx=nx;ry=ny;beep(500)}else if(b==1)rd=(rd+3)%4;else if(b==2)rd=(rd+1)%4;else if(rx==L.gl[0]&&ry==L.gl[1]){got=1;beep(900)}draw()}
+run=0;if(got)setTimeout(()=>fin(pg.length<=L.o?3:pg.length<=L.o+2?2:1),500);else toast('Bintang belum terambil. Coba lagi!')};
+reset();prog()}
+function drawEnd(){const t=S.st.reduce((a,b)=>a+b,0),sc=S.sc.reduce((a,b)=>a+b,0),ok=t>=16;$('#h8').textContent=`Selamat, ${S.name||'Petualang'}! Kamu Berhasil Menjadi PAKAR Berpikir Komputasional`;
+$('#e1').textContent='★'.repeat(Math.round(t/8))+'☆'.repeat(3-Math.round(t/8));$('#e2').textContent=`Total Bintang: ${t} / 24 ★   •   Total Skor: ${sc} Poin`;
+$('#e3').textContent='Status: '+(t>=21?'SANGAT TUNTAS':t>=16?'TUNTAS':'BELUM TUNTAS');$('#cd').textContent=`MP-K3524018-${t}S-${sc}P-${ok?'OK':'RM'}`;
+$('#cfw').innerHTML=Array.from({length:40},()=>`<i class="cf" style="left:${Math.random()*100}%;background:${['#F1C40F','#2ECC71','#E74C3C','#4A90E2'][Math.random()*4|0]};animation-delay:${Math.random()*3}s"></i>`).join('')}
+async function cp(){try{await navigator.clipboard.writeText($('#cd').textContent);toast('Kode disalin ✔')}catch(e){toast('Salin manual: blok kode lalu Ctrl+C')}}
+</script></body></html>
